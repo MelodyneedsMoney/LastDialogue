@@ -1,0 +1,104 @@
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+  <script>
+    var j = 0;
+    var e;
+    var Diameter = 9;
+    var CircleNum = 130;
+    var size = 10;
+var count=1800;
+var store=0;
+var on=false;
+
+    function preload() {
+      e = loadStrings('entropy.txt');
+      img = loadImage('img/4new.png');
+    }
+
+
+    function setup() {
+      createCanvas(1600 , (1000+100) );
+      background(0);
+      imageMode(CENTER);
+      image(img, width / 2, height / 2, width, height-200);
+    }
+
+    function draw() {
+
+      var entropy = split(e[0], ',');
+      if (entropy[j]>=0.002&&entropy[j]<0.005){
+        store = entropy[j] * 1300;
+      }else if (entropy[j]>=0.005&&entropy[j]<0.01){
+        store = entropy[j] * 900;
+      }else if (entropy[j]>=0.01&&entropy[j]<0.02){
+        store = entropy[j] * 250;
+      }else if (entropy[j]>=0.02&&entropy[j]<0.04){
+        store = entropy[j] * 150;
+      }else if (entropy[j]>=0.04&&entropy[j]<0.06){
+        store = entropy[j] * 100;
+      }
+      else if (entropy[j]>=0.06&&entropy[j]<0.08){
+        store = entropy[j] * 100;
+      }
+      else if (entropy[j]>=0.08&&entropy[j]<0.1){
+        store = entropy[j] * 15;
+      }else if (entropy[j]>=0.1&&entropy[j]<1){
+        store = entropy[j] * 4;
+      }else {store = entropy[j] * 5.2;}
+
+
+      noStroke();
+
+if (mouseIsPressed){
+  on=true;
+}
+if(on){
+  push();
+  translate(width / 2, height / 2);
+  for (var i = 0; i < 10 + j*2; ++i) {
+    frameRate(25);
+    fill(random(150, 255), random(90,200), random(255-j*1.1,160), random(40, 255));
+    ellipse(width / 120, 2 + j * 4.2, store, store);
+    rotate(PI * 2 / random(10, 30));
+
+  }
+  pop();
+
+  count++;
+  j++;
+}
+
+    }
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+
+//  background(255,0);
+//       push();
+//       for (var i = 0; i < CircleNum; i++) {
+//         translate(width/2,height/2);
+//         rotate(1);
+//         var x3 = (i ) * (width) / (CircleNum);
+//         var x = (i ) * (width) / (CircleNum - 20);
+//         var x2 = (i ) * (width) / (CircleNum - 20);
+//         fill(200, 160, 150, 190);
+//         noStroke();
+//        ellipse(x2, height / 2 + 30 * cos(PI * (3 / 4) + 90 * i + frameCount  / 100), Diameter, Diameter);
+// fill(200, 130, 150, 200);
+//       //  ellipse(x, height / 2 + 30 * cos(PI * (3 / 4) + 50 * i + (frameCount ) / 150), Diameter / 2, Diameter / 2);
+//     fill(200, 170, 150, 100);
+//       ellipse(30 * cos(PI * (3 / 4) + 50 * i + (frameCount ) / 200)+90, x - 80, Diameter, Diameter);
+//         rotate(-3);
+//         fill(200, 130, 150, 190);
+//       //  ellipse(30 * cos(PI * (3 / 4) + 50 * i + (frameCount ) / 100) + 900, x - 200, Diameter + 3, Diameter + 3);
+//         ellipse(x - 200, height / 2 + 30 * cos(PI * (3 / 4) + 50 * i + (frameCount ) / 300) - 100, Diameter - 2, Diameter - 2);
+//     }
+//     pop();

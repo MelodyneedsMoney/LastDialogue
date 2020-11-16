@@ -1,0 +1,146 @@
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+
+  <script>
+    var CircleNum
+    var Diameter = 10;
+
+    var r = 255;
+    var rup = 255;
+    var o = 255;
+    var so=255;
+    var b = 150;
+    var g = 150;
+    var gup = 100;
+    var mouseS = 50;
+    var mouseR = 0;
+    var posX = 0;
+    var count = 0;
+    var d;
+
+    function preload() {
+      d = loadStrings('sox1.txt');
+
+      img = loadImage('img/1.png');
+    }
+
+    function setup() {
+      createCanvas(1600, 900);
+      CircleNum = 100;
+      frameRate(80);
+    }
+
+    function draw() {
+
+      imageMode(CENTER);
+      image(img, width/2, height/2, width, height);
+      translate(width/8, height*3/4);
+      rotate(357.2);
+      var s1 = split(d[0], '');
+      var s2 = split(d[1], '');
+
+      for (var i = 0; i < CircleNum; i++) {
+        rotate(1 / 200);
+        var x = (i - posX) * (width) / (CircleNum - 20);
+        var x2 = (i + posX) * (width) / (CircleNum - 20);
+
+
+
+        if (count >= 5) {
+
+          posX = 3;
+          strokeWeight(1.2);
+          stroke(255,so);
+          line(x + 100, height / 2 + 30 * sin(50 * i + frameCount / 100) + 50,
+          x2 + 100, height / 2 + 30 * cos(PI * (3 / 4) + 50 * i + frameCount / 100) + 80)
+          line(x, height / 2 + 30 * sin(mouseS * i + frameCount / 100),
+          x2, height / 2 + 30 * cos(PI * (3 / 4) + mouseS * i + frameCount / 100))
+
+          fill(random(r, rup), random(g, gup), b, o);
+          noStroke();
+          textSize(17);
+          text(s1[i], x + 98, height / 2 + 33 * sin(50 * i + frameCount / 100) + 50);
+          text(s1[i], x - 2, height / 2 + 33 * sin(mouseS * i + frameCount / 100));
+
+
+          text(s2[i], x2 + 98, height / 2 + 33 * cos(PI * (3 / 4) + 50 * i + frameCount / 100) + 80);
+          text(s2[i], x2 - 2, height / 2 + 33 * cos(PI * (3 / 4) + mouseS * i + frameCount / 100));
+
+          rotate(1);
+          var x3 = (i+posX) * (width) / (CircleNum);
+          fill(250, 150, 150,150);
+          noStroke();
+          ellipse(x2, height / 2 + 30 * sin(50 * i + frameCount / 100), Diameter, Diameter);
+          ellipse(x3, height / 2 + 30 * cos(PI * (3 / 4)+50 * i + frameCount / 100), Diameter/2, Diameter/2);
+          ellipse( height / 2 + 30 * cos(PI * (3 / 4)+50 * i + frameCount / 100),x, Diameter-2, Diameter-2);
+
+          ellipse(x, height / 2 + 30 * cos(PI * (3 / 4)+50 * i + frameCount / 100), Diameter-2, Diameter-2);
+
+
+        } else {
+
+          strokeWeight(1.2);
+          stroke(255, 230,230,o-30);
+          line(x, height / 2 + 50 * sin(mouseS * i + frameCount / 100), x2, height / 2 + 50 * cos(PI * (3 / 4) + mouseS * i + frameCount / 100))
+          fill(random(r, rup), random(g, gup), b, o);
+          noStroke();
+          textSize(20);
+          text(s1[i], x - 2, height / 2 + 48 * sin(mouseS * i + frameCount / 100));
+
+          fill(random(r, 255), g, b, o);
+          text(s2[i], x2 - 2, height / 2 + 48 * cos(PI * (3 / 4) + mouseS * i + frameCount / 100));
+
+          var x3 = (i+posX+10) * (width) / (CircleNum);
+          fill(r, g, 200, 90);
+          noStroke();
+          ellipse(x3, height / 2 + 30 * tan(50 * i + frameCount / 100), Diameter, Diameter);
+
+        }
+
+
+
+      }
+    }
+
+    function mousePressed() {
+      gup += 10;
+      rup -= 10;
+      r -= 45;
+      b += 40;
+      g -= 10;
+      o -= 5;
+so-=20;
+if (so<=150){
+  so=150;
+}
+      if (o <= 150) {
+        o = 150;
+      }
+      if (gup > 200) {
+        gup = 200;
+      }
+      if (rup < 150) {
+        rup = 150;
+      }
+
+
+      if (mouseS <= (mouseS-0.1)) {
+        mouseS =mouseS-0.1;
+      } else {
+        mouseS -= 0.1;
+      }
+
+      mouseR += 1;
+      count++;
+      posX += 5;
+    }
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
